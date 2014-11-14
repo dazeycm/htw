@@ -3,7 +3,13 @@ package edu.miamioh.cse283.htw;
 import java.net.*;
 import java.util.*;
 
-
+/**
+* The CaveServer class takes the following command-line parameters:
+* 
+* <Hostname of CaveSystemServer> <port number of CaveSystemServer> <port number of this CaveServer>
+* 
+* E.g., "localhost 1234 2000" 
+*/
 public class CaveServer {
 	
 	/** Port base for this cave server. */
@@ -88,12 +94,21 @@ public class CaveServer {
 
 	/** Main method (run the CaveServer). */
 	public static void main(String[] args) throws Exception {
+		InetAddress addr=InetAddress.getByName("localhost");
+		int cssPortBase=1234;
+		int cavePortBase=2000;
+		
+		if(args.length > 0) {
+			addr = InetAddress.getByName(args[0]);
+			cssPortBase = Integer.parseInt(args[1]);
+			cavePortBase = Integer.parseInt(args[2]);
+		}
+		
 		// first, we need our proxy object to the CaveSystemServer:
-		CaveSystemServerProxy caveSystem = new CaveSystemServerProxy(
-				new Socket(InetAddress.getByName(args[0]), Integer.parseInt(args[1])+1));
+		CaveSystemServerProxy caveSystem = new CaveSystemServerProxy(new Socket(addr, cssPortBase+1));
 		
 		// now construct this cave server, and run it:
-		CaveServer cs = new CaveServer(caveSystem, Integer.parseInt(args[2]));
+		CaveServer cs = new CaveServer(caveSystem, cavePortBase);
 		cs.run();
 	}
 }
