@@ -30,7 +30,12 @@ public class CaveServer {
 		this.portBase = portBase;
 		rooms = new ArrayList<Room>();
 		for(int i=0; i<20; ++i) {
-			rooms.add(new Room());
+			//rooms.add(new Room());
+			Room room = new Room();
+			if(i >= 3){
+				//room.neighbors.add(rooms.get())	//add random neighbors
+			}
+			rooms.add(room);
 		}
 	}
 
