@@ -80,11 +80,20 @@ public class CaveServer {
 				// put the player in a room (any room is fine)
 				rooms.get(0).players.add(client);
 				while(true)	{
+					//int oldRoom = 
 					client.senses("You are in an empty room.");
 					client.message("The connecting rooms are " + rooms.get(0).printNeighbors());	
 					String action = client.getAction();
 					
-					client.message(action);
+					if(action.contains("move"))	{
+						action = action.replaceAll("[^-?0-9]", "");
+						int roomNum = Integer.parseInt(action);
+					}
+					
+					
+					// -- and retrieve their action:
+					// -- and perform the action
+					//client.message(action);
 				}
 				
 				

@@ -1,6 +1,7 @@
 package edu.miamioh.cse283.htw;
 
 import java.net.*;
+import java.util.Scanner;
 
 /** Client (player) for the Hunt the Wumpus game.
  * 
@@ -12,6 +13,7 @@ import java.net.*;
  *
  */
 public class Client {
+	protected Scanner kb;
 	
 	/** Proxy object that connects the client to its current cave. */
 	protected CaveProxy cave;
@@ -37,14 +39,16 @@ public class Client {
 			cave = cave.handoff();
 			System.out.println(cave.getMessage());
 			
+			kb = new Scanner(System.in);
+			
 			// now start the sense and respond loop:
 			while(isAlive()) {
 				System.out.println(cave.getSenses());
+				System.out.println(cave.getMessage());
 				
-				// get an action from the player, and
-				// send it to the cave server.
-				cave.sendAction("move 1");
-				
+				String action = "";
+				action = kb.nextLine();
+				cave.sendAction(action);
 			}
 			
 		} catch(Exception ex) {
