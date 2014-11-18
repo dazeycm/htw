@@ -28,14 +28,34 @@ public class CaveServer {
 	public CaveServer(CaveSystemServerProxy caveSystem, int portBase) {
 		this.caveSystem = caveSystem;
 		this.portBase = portBase;
+		
 		rooms = new ArrayList<Room>();
-		for(int i=0; i<20; ++i) {
-			//rooms.add(new Room());
-			Room room = new Room();
-			if(i >= 3){
-				//room.neighbors.add(rooms.get())	//add random neighbors
-			}
+		rooms.add(new Room(0));
+		rooms.add(new Room(1));
+		rooms.add(new Room(2));
+		rooms.get(0).neighbors.add(rooms.get(1));
+		
+		rooms.get(1).neighbors.add(rooms.get(0));
+		rooms.get(1).neighbors.add(rooms.get(2));
+		
+		rooms.get(2).neighbors.add(rooms.get(1));
+		
+		for(int i=3; i<20; ++i) {
+			Room room = new Room(i);
+			//room.roomNum = i;
+			Random r = new Random();
 			rooms.add(room);
+			if (i == 3)	{
+				rooms.get(2).neighbors.add(rooms.get(3));
+				for(int j=0; j < 2; j++)	{
+					room.neighbors.add(rooms.get(r.nextInt(rooms.size())));	//add random neighbors
+				}
+			}
+			else{	
+				for(int j=0; j < 3; j++)	{
+					room.neighbors.add(rooms.get(r.nextInt(rooms.size())));	//add random neighbors
+				}
+			}
 		}
 	}
 
@@ -56,17 +76,16 @@ public class CaveServer {
 		 */
 		public void run() {
 			try {
-				client.message("Welcome!");
-				
+				client.message("Abandon all hope ye who enter here!");
 				// put the player in a room (any room is fine)
-
-				// now, in a loop while the player is alive:
-				// -- send the player their "senses":				
-				client.senses("You are in an empty room.");
-				// -- and retrieve their action:
-				String action = client.getAction();
-				// -- and perform the action
-				
+				rooms.get(0).players.add(client);
+				while(true)	{
+					client.senses("You are in an empty room.");
+					client.message("The connecting rooms are " + rooms.get(0).printNeighbors());	
+					String action = client.getAction();
+					
+					client.message(action);
+				}
 				
 				
 			} catch(Exception ex) {
