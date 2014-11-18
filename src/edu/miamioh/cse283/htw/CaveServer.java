@@ -48,6 +48,7 @@ public class CaveServer {
 			rooms.add(room);
 			if (i == 3) {
 				rooms.get(2).neighbors.add(rooms.get(3));
+				rooms.get(3).neighbors.add(rooms.get(2));
 				for (int j = 0; j < 2; j++) {
 					room.neighbors.add(rooms.get(r.nextInt(rooms.size()))); // add random neighbors
 				}
@@ -90,14 +91,13 @@ public class CaveServer {
 				while (true) {
 
 					client.senses("You are in an empty room.");
-					client.message("The connecting rooms are "
-							+ rooms.get(curRoom).printNeighbors());
+					client.message("The connecting rooms are " + rooms.get(curRoom).printNeighbors());
 					String action = client.getAction();
 
 					if (action.contains("move")) {
 						action = action.replaceAll("[^-?0-9]", "");
-						newRoom = Integer.parseInt(action);
-						rooms.get(curRoom).players.remove(client);
+						newRoom = Integer.parseInt(action);	//need to make sure the room they want to go to is attached to the current room
+						rooms.get(curRoom).players.remove(client);	
 						rooms.get(newRoom).players.add(client);
 						curRoom = newRoom;
 					}
