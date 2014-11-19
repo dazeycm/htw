@@ -52,8 +52,15 @@ public class CaveServer {
 		rooms.get(3).neighbors.add(rooms.get(2));
 		
 		for(int i = 3; i < 20; i++)	{
-			for (int j = 0; j < 3; j++){
-				rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
+			
+			if(i == 3)	{
+				for (int j = 0; j < 2; j++){
+					rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
+				}
+			}else	{
+				for (int j = 0; j < 3; j++){
+					rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
+				}
 			}
 		}
 		
