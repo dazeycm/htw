@@ -44,16 +44,14 @@ public class CaveServer {
 		}
 		
 		for(int i = 3; i < 20; i++)	{
-			for (int j = 0; j < 1; j++){
-				int rand = 19 - r.nextInt(18);
-				while(rooms.get(i).getNumNeighbors() < 4)	{
-					if(rooms.get(rand).getNumNeighbors() < 4)	{	
-						rooms.get(i).neighbors.add(rooms.get(rand));
-						rooms.get(rand).neighbors.add(rooms.get(i));
-					}
-					else
-						rand = 19 - r.nextInt(18);
+			int rand = 19 - r.nextInt(18);
+			while(rooms.get(i).getNumNeighbors() < 3)	{
+				if(rooms.get(rand).getNumNeighbors() < 3)	{	
+					rooms.get(i).neighbors.add(rooms.get(rand));
+					rooms.get(rand).neighbors.add(rooms.get(i));
 				}
+				else
+					rand = 19 - r.nextInt(18);
 			}
 		}
 		
