@@ -140,7 +140,10 @@ public class CaveServer {
 						sb.append("If this game were working, Kyle would have eaten you. ");
 					
 					client.message(sb.toString());
-					client.message("The connecting rooms are " + rooms.get(curRoom).printNeighbors());
+					if (rooms.get(curRoom).getNumNeighbors() == 1)
+						client.message("The connecting room is " + rooms.get(curRoom).printNeighbors());
+					else
+						client.message("The connecting rooms are " + rooms.get(curRoom).printNeighbors());
 					String action = client.getAction();
 
 					if (action.contains("move")) {

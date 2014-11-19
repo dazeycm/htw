@@ -28,7 +28,7 @@ public class Room {
 			
 			if(getNumNeighbors() == 2)	{
 				if (i == 0)	{
-					ret += this.neighbors.get(i).roomNum + " and, ";
+					ret += this.neighbors.get(i).roomNum + " and ";
 				}
 				if (i == 1)	{
 					ret += this.neighbors.get(i).roomNum;
