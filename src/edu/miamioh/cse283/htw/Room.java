@@ -42,7 +42,6 @@ public class Room {
 				if (i == 2)
 					ret += "and " + this.neighbors.get(i).roomNum; 
 			}
-			
 		}
 		return ret;
 	}
