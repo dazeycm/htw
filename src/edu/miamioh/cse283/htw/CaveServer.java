@@ -132,14 +132,17 @@ public class CaveServer {
 						client.message("The connecting room is " + rooms.get(curRoom).printNeighbors());
 					else
 						client.message("The connecting rooms are " + rooms.get(curRoom).printNeighbors());
+					
 					String action = client.getAction();
 
 					if (action.contains("move")) {
 						action = action.replaceAll("[^-?0-9]", "");
 						newRoom = Integer.parseInt(action);	//need to make sure the room they want to go to is attached to the current room
-						rooms.get(curRoom).players.remove(client);	
-						rooms.get(newRoom).players.add(client);
-						curRoom = newRoom;
+						if(rooms.get(curRoom).neighbors.contains(rooms.get(newRoom)))	{
+							rooms.get(curRoom).players.remove(client);	
+							rooms.get(newRoom).players.add(client);
+							curRoom = newRoom;
+						}
 					}
 					
 					// -- and retrieve their action:
