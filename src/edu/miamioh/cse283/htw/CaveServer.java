@@ -47,17 +47,6 @@ public class CaveServer {
 			Room room = new Room(i);
 			// room.roomNum = i;
 			rooms.add(room);
-		/*	if (i == 3) {
-				rooms.get(2).neighbors.add(rooms.get(3));
-				rooms.get(3).neighbors.add(rooms.get(2));
-				for (int j = 0; j < 2; j++) {
-					room.neighbors.add(rooms.get(r.nextInt(20))); // add random neighbors
-				}
-			} else {
-				for (int j = 0; j < 3; j++) {
-					room.neighbors.add(rooms.get(r.nextInt(20))); // add  random neighbors
-				}
-			}*/
 		}
 		rooms.get(2).neighbors.add(rooms.get(3));
 		rooms.get(3).neighbors.add(rooms.get(2));
@@ -65,6 +54,25 @@ public class CaveServer {
 		for(int i = 3; i < 20; i++)	{
 			for (int j = 0; j < 3; j++){
 				rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
+			}
+		}
+		
+		for(int i = 3; i < 20; i++)	{
+			for (int j = 0; j < 3; j++){
+				int chance = r.nextInt(20);
+				if (j == 0){
+					if (chance < 5)
+						rooms.get(i).hasBats = true;
+				}
+				if (j == 1)	{
+					if (chance < 5)
+						rooms.get(i).hasPit = true;
+				}
+				if (j == 2)	{
+					if (chance < 5)
+						rooms.get(i).hasWumpus = true;
+				}
+				
 			}
 		}
 		
@@ -100,9 +108,32 @@ public class CaveServer {
 				int curRoom = 0;
 				int newRoom = 0;
 				while (true) {
-
-					client.senses("You are in an empty room.");
-					client.message("The connecting rooms are " + rooms.get(curRoom).printNeighbors());
+					client.message("You are now in room " + curRoom);
+					StringBuilder sb = new StringBuilder();
+					for(Room r : rooms.get(curRoom).neighbors)	{
+						if (r.hasBats)
+							sb.append("You sense bats in a nearby room. ");
+						if (r.hasPit)
+							sb.append("You feel a draft in a nearby room. ");
+						if (r.hasWumpus)
+							sb.append("Something that smells like Kyle is in a nearby room. ");
+					}
+					if(sb.length() == 0)
+						sb.append("The surrounding rooms look safe to me, man. You can trust me, right?");
+					client.senses(sb.toString());
+					sb.setLength(0); //empty the stringbuilder
+					
+					if(rooms.get(curRoom).hasBats)	
+						sb.append("If this game were working, you'd be teleported right now. ");
+					
+					if(rooms.get(curRoom).hasPit)	
+						sb.append("If this game were working, you'd be dead right now. ");
+					
+					if(rooms.get(curRoom).hasWumpus)
+						sb.append("If this game were working, Kyle would have eaten you. ");
+					
+					client.message(sb.toString());
+					client.message("The connecting room(s) are/is " + rooms.get(curRoom).printNeighbors());
 					String action = client.getAction();
 
 					if (action.contains("move")) {
