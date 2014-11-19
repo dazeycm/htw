@@ -43,7 +43,14 @@ public class Client {
 			
 			// now start the sense and respond loop:
 			while(isAlive()) {
+				System.out.println(cave.getMessage());
 				System.out.println(cave.getSenses());
+				
+				String str = cave.getMessage();
+				if (str.length() > 0)	{
+					System.out.println(str);
+				}
+				
 				System.out.println(cave.getMessage());
 				
 				String action = "";
