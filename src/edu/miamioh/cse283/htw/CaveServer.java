@@ -64,7 +64,7 @@ public class CaveServer {
 			}
 		}
 		
-		for(int i = 3; i < 20; i++)	{
+		for(int i = 4; i < 20; i++)	{
 			for (int j = 0; j < 3; j++){
 				int chance = r.nextInt(20);
 				if (j == 0){
