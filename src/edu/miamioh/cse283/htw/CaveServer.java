@@ -31,35 +31,28 @@ public class CaveServer {
 		this.portBase = portBase;
 
 		rooms = new ArrayList<Room>();
-		rooms.add(new Room(0));
-		rooms.add(new Room(1));
-		rooms.add(new Room(2));
-		rooms.get(0).neighbors.add(rooms.get(1));
-
-		rooms.get(1).neighbors.add(rooms.get(0));
-		rooms.get(1).neighbors.add(rooms.get(2));
-
-		rooms.get(2).neighbors.add(rooms.get(1));
-		
 		Random r = new Random();
 
-		for (int i = 3; i < 20; ++i) {
+		for (int i = 0; i < 20; ++i) {
 			Room room = new Room(i);
-			// room.roomNum = i;
 			rooms.add(room);
 		}
-		rooms.get(2).neighbors.add(rooms.get(3));
-		rooms.get(3).neighbors.add(rooms.get(2));
+		
+		for(int i = 0; i < 19; i++)	{
+			rooms.get(i).neighbors.add(rooms.get(i + 1));
+			rooms.get(i + 1).neighbors.add(rooms.get(i));
+		}
 		
 		for(int i = 3; i < 20; i++)	{
-			
-			if(i == 3)	{
-				for (int j = 0; j < 2; j++){
-					rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
-				}
-			}else	{
-				for (int j = 0; j < 3; j++){
-					rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
+			for (int j = 0; j < 1; j++){
+				int rand = 19 - r.nextInt(18);
+				while(rooms.get(i).getNumNeighbors() < 4)	{
+					if(rooms.get(rand).getNumNeighbors() < 4)	{	
+						rooms.get(i).neighbors.add(rooms.get(rand));
+						rooms.get(rand).neighbors.add(rooms.get(i));
+					}
+					else
+						rand = 19 - r.nextInt(18);
 				}
 			}
 		}
@@ -78,12 +71,9 @@ public class CaveServer {
 				if (j == 2)	{
 					if (chance < 5)
 						rooms.get(i).hasWumpus = true;
-				}
-				
+				}	
 			}
 		}
-		
-		
 	}
 
 	/** Returns the port number to use for accepting client connections. */
