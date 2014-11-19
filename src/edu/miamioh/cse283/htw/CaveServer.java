@@ -40,24 +40,35 @@ public class CaveServer {
 		rooms.get(1).neighbors.add(rooms.get(2));
 
 		rooms.get(2).neighbors.add(rooms.get(1));
+		
+		Random r = new Random();
 
 		for (int i = 3; i < 20; ++i) {
 			Room room = new Room(i);
 			// room.roomNum = i;
-			Random r = new Random();
 			rooms.add(room);
-			if (i == 3) {
+		/*	if (i == 3) {
 				rooms.get(2).neighbors.add(rooms.get(3));
 				rooms.get(3).neighbors.add(rooms.get(2));
 				for (int j = 0; j < 2; j++) {
-					room.neighbors.add(rooms.get(r.nextInt(rooms.size()))); // add random neighbors
+					room.neighbors.add(rooms.get(r.nextInt(20))); // add random neighbors
 				}
 			} else {
 				for (int j = 0; j < 3; j++) {
-					room.neighbors.add(rooms.get(r.nextInt(rooms.size()))); // add  random neighbors
+					room.neighbors.add(rooms.get(r.nextInt(20))); // add  random neighbors
 				}
+			}*/
+		}
+		rooms.get(2).neighbors.add(rooms.get(3));
+		rooms.get(3).neighbors.add(rooms.get(2));
+		
+		for(int i = 3; i < 20; i++)	{
+			for (int j = 0; j < 3; j++){
+				rooms.get(i).neighbors.add(rooms.get(r.nextInt(20)));
 			}
 		}
+		
+		
 	}
 
 	/** Returns the port number to use for accepting client connections. */
