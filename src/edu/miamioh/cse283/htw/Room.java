@@ -49,4 +49,8 @@ public class Room {
 		return ret;
 	}
 	
+	public boolean hasThreat()	{
+		return this.hasBats || this.hasPit || this.hasWumpus;
+	}
+	
 }
