@@ -46,12 +46,12 @@ public class Client {
 				String str;
 				System.out.println(cave.getMessage());
 				
-				str = cave.getSenses();
+				str = cave.getMessage();
 				if (str.length() > 0)	{
 					System.out.println(str);
 				}
 				
-				str = cave.getMessage();
+				str = cave.getSenses();
 				if (str.length() > 0)	{
 					System.out.println(str);
 				}

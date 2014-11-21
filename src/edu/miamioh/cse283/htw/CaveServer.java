@@ -105,6 +105,27 @@ public class CaveServer {
 				while (true) {
 					client.message("You are now in room " + curRoom);
 					StringBuilder sb = new StringBuilder();
+					
+					if(rooms.get(curRoom).hasBats)	{
+						sb.append("You've been carried away by the bats! ");
+						Random r = new Random();
+						newRoom = r.nextInt(20);
+						rooms.get(curRoom).players.remove(client);	
+						rooms.get(newRoom).players.add(client);
+						sb.append("\nYou are now in room " + newRoom + ". ");
+						curRoom = newRoom;
+					}
+					
+					if(rooms.get(curRoom).hasPit)	
+						sb.append("Help! You've fallen in a pit and can't get out! ");
+					
+					if(rooms.get(curRoom).hasWumpus)	{
+						sb.append("Kyle slithers out from the depths and eats you whole. ");
+					}
+					
+					client.message(sb.toString());
+					sb.setLength(0);
+					
 					for(Room r : rooms.get(curRoom).neighbors)	{
 						if (r.hasBats)	{
 							if(!sb.toString().contains("bats"))
@@ -124,23 +145,7 @@ public class CaveServer {
 					client.senses(sb.toString());
 					sb.setLength(0); //empty the stringbuilder
 					
-					if(rooms.get(curRoom).hasBats)	{
-						sb.append("You've been carried away by the bats! ");
-						Random r = new Random();
-						newRoom = r.nextInt(20);
-						rooms.get(curRoom).players.remove(client);	
-						rooms.get(newRoom).players.add(client);
-						curRoom = newRoom;
-					}
 					
-					if(rooms.get(curRoom).hasPit)	
-						sb.append("Help! You've fallen in a pit and can't get out! ");
-					
-					if(rooms.get(curRoom).hasWumpus)	{
-						sb.append("Kyle slithers out from the depths and eats you whole. ");
-					}
-					
-					client.message(sb.toString());
 					
 					if (rooms.get(curRoom).getNumNeighbors() == 1)
 						client.message("The connecting room is " + rooms.get(curRoom).printNeighbors());
