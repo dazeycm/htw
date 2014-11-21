@@ -113,8 +113,8 @@ public class CaveServer {
 						if (r.hasWumpus)
 							sb.append("Something that smells like Kyle is in a nearby room. ");
 					}
-					if(sb.length() == 0)
-						sb.append("The surrounding rooms look safe to me, man. You can trust me, right?");
+					//if(sb.length() == 0)
+						//sb.append("The surrounding rooms look safe to me, man. You can trust me, right?");
 					client.senses(sb.toString());
 					sb.setLength(0); //empty the stringbuilder
 					
@@ -125,9 +125,10 @@ public class CaveServer {
 						sb.append("If this game were working, you'd be dead right now. ");
 					
 					if(rooms.get(curRoom).hasWumpus)
-						sb.append("If this game were working, Kyle would have eaten you. ");
+						sb.append("Kyle slithers out from the depths and eats you whole. ");
 					
 					client.message(sb.toString());
+					
 					if (rooms.get(curRoom).getNumNeighbors() == 1)
 						client.message("The connecting room is " + rooms.get(curRoom).printNeighbors());
 					else
