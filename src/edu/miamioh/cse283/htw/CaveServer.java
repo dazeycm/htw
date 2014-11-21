@@ -106,12 +106,18 @@ public class CaveServer {
 					client.message("You are now in room " + curRoom);
 					StringBuilder sb = new StringBuilder();
 					for(Room r : rooms.get(curRoom).neighbors)	{
-						if (r.hasBats)
-							sb.append("You sense bats in a nearby room. ");
-						if (r.hasPit)
-							sb.append("You feel a draft in a nearby room. ");
-						if (r.hasWumpus)
-							sb.append("Something that smells like Kyle is in a nearby room. ");
+						if (r.hasBats)	{
+							if(!sb.toString().contains("bats"))
+								sb.append("You sense bats in a nearby room. ");
+						}
+						if (r.hasPit)	{
+							if(!sb.toString().contains("draft"))
+								sb.append("You feel a draft in a nearby room. ");
+						}
+						if (r.hasWumpus)	{
+							if(!sb.toString().contains("Kyle"))
+								sb.append("Something that smells like Kyle is in a nearby room. ");
+						}
 					}
 					//if(sb.length() == 0)
 						//sb.append("The surrounding rooms look safe to me, man. You can trust me, right?");
