@@ -43,7 +43,11 @@ public class Room {
 					ret += "and " + this.neighbors.get(i).roomNum; 
 			}
 			if(getNumNeighbors() > 3)	{
-				ret+= "errrrrror";
+				if (i == 0 || i == 1 || i == 2)	{
+					ret += this.neighbors.get(i).roomNum + ", ";
+				}
+				if (i == 3)
+					ret += "and " + this.neighbors.get(i).roomNum; 
 			}
 		}
 		return ret;
