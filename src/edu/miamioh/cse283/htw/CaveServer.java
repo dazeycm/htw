@@ -112,7 +112,7 @@ public class CaveServer {
 						newRoom = r.nextInt(20);
 						rooms.get(curRoom).players.remove(client);	
 						rooms.get(newRoom).players.add(client);
-						sb.append("\nYou are now in room " + newRoom + ". ");
+						sb.append("You are now in room " + newRoom + ". ");
 						curRoom = newRoom;
 					}
 					
@@ -157,10 +157,14 @@ public class CaveServer {
 					if (action.contains("move")) {
 						action = action.replaceAll("[^-?0-9]", "");
 						newRoom = Integer.parseInt(action);	//need to make sure the room they want to go to is attached to the current room
-						if(rooms.get(curRoom).neighbors.contains(rooms.get(newRoom)))	{
-							rooms.get(curRoom).players.remove(client);	
-							rooms.get(newRoom).players.add(client);
-							curRoom = newRoom;
+						
+						
+						if(newRoom < 19)	{
+							if(rooms.get(curRoom).neighbors.contains(rooms.get(newRoom)))	{
+								rooms.get(curRoom).players.remove(client);	
+								rooms.get(newRoom).players.add(client);
+								curRoom = newRoom;
+							}
 						}
 					}
 					
