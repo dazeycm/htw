@@ -14,6 +14,7 @@ import java.util.Scanner;
  */
 public class Client {
 	protected Scanner kb;
+	protected boolean isAlive = true;
 	
 	/** Proxy object that connects the client to its current cave. */
 	protected CaveProxy cave;
@@ -24,9 +25,9 @@ public class Client {
 	}
 	
 	/** Returns true if the player is still alive. */
-	public synchronized boolean isAlive() {
-		return true;
-	}
+	//public synchronized boolean isAlive(boolean bool) {
+	//	return bool;
+	//}
 
 	/** Plays the game.
 	 * 
@@ -42,7 +43,7 @@ public class Client {
 			kb = new Scanner(System.in);
 			
 			// now start the sense and respond loop:
-			while(isAlive()) {
+			while(this.isAlive) {
 				String str;
 				System.out.println(cave.getMessage());
 				
