@@ -128,10 +128,11 @@ public class CaveServer {
 						sb.append("If this game were working, you'd be teleported right now. ");
 					
 					if(rooms.get(curRoom).hasPit)	
-						sb.append("If this game were working, you'd be dead right now. ");
+						sb.append("Help! You've fallen in a pit and can't get out! ");
 					
-					if(rooms.get(curRoom).hasWumpus)
+					if(rooms.get(curRoom).hasWumpus)	{
 						sb.append("Kyle slithers out from the depths and eats you whole. ");
+					}
 					
 					client.message(sb.toString());
 					
