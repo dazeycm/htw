@@ -59,15 +59,15 @@ public class CaveServer {
 			for (int j = 0; j < 3; j++){
 				int chance = r.nextInt(20);
 				if (j == 0){
-					if (chance < 5)
+					if (chance < 5 && !rooms.get(i).hasThreat())
 						rooms.get(i).hasBats = true;
 				}
 				if (j == 1)	{
-					if (chance < 5)
+					if (chance < 5 && !rooms.get(i).hasThreat())
 						rooms.get(i).hasPit = true;
 				}
 				if (j == 2)	{
-					if (chance < 5)
+					if (chance < 5 && !rooms.get(i).hasThreat())
 						rooms.get(i).hasWumpus = true;
 				}	
 			}
