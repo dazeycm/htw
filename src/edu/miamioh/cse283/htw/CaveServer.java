@@ -124,8 +124,14 @@ public class CaveServer {
 					client.senses(sb.toString());
 					sb.setLength(0); //empty the stringbuilder
 					
-					if(rooms.get(curRoom).hasBats)	
-						sb.append("If this game were working, you'd be teleported right now. ");
+					if(rooms.get(curRoom).hasBats)	{
+						sb.append("You've been carried away by the bats! ");
+						Random r = new Random();
+						newRoom = r.nextInt(20);
+						rooms.get(curRoom).players.remove(client);	
+						rooms.get(newRoom).players.add(client);
+						curRoom = newRoom;
+					}
 					
 					if(rooms.get(curRoom).hasPit)	
 						sb.append("Help! You've fallen in a pit and can't get out! ");
