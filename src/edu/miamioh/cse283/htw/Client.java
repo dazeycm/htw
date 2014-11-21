@@ -50,6 +50,9 @@ public class Client {
 				str = cave.getMessage();
 				if (str.length() > 0)	{
 					System.out.println(str);
+					if(str.contains("fallen") || str.contains("depths"))	{
+						//this.isAlive = false;
+					}
 				}
 				
 				str = cave.getSenses();
