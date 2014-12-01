@@ -1,4 +1,4 @@
 htw
 ===
 
-A game of hunt the wumpus
+A naive game of hunt the wumpus
